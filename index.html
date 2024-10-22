@@ -14,8 +14,8 @@
 
     <!-- Webmanifest + Favicon / App icons -->
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" href="assets/app-icons/icon-32x32.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="assets/app-icons/icon-180x180.png">
+    <link rel="icon" type="image/png" href="foto/logo.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="foto/logo.png">
 
     <!-- Import Google font (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,6 +54,7 @@
       }
       .FaithOfGuran-title {
         font-family: 'FaithOfGuran-title', sans-serif;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
       }
 
     </style>
@@ -181,14 +182,42 @@
         }
       }
 
+      /* telefono */
       @media only screen and (orientation: portrait) {
         #nome-progetto {
           font-size: 36px !important;
         }
 
         .swiper {
-          width: 95% !important;
+          width: 90% !important;
+        }
 
+        .logo-footer {
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .diritti-footer {
+          justify-content: center;
+          text-align: center;
+        }
+
+        #logo-kick {
+          display: none;
+        }
+
+        .countdown div {
+          margin: 0 !important;
+        }
+        .contact-form {
+          width: 90% !important;
+        }
+
+        .contact-form-container {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
         }
       }
       
@@ -198,34 +227,68 @@
           font-size: 35px;
         }
       }
+      .page-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000; /* Colore di sfondo mentre il video si carica */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Assicura che il preloader sia sopra tutti gli altri elementi */
+      }
 
+      .page-loading video {
+        width: 100%; /* Imposta il video per coprire tutta la larghezza */
+        height: 100%; /* Imposta il video per coprire tutta l'altezza */
+        object-fit: cover; /* Assicura che il video copra l'intero schermo mantenendo le proporzioni */
+        object-position: center; /* Centra il video nello schermo */
+      }
+
+      .page-loading.active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .page-loading:not(.active) {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+      }
     </style>
-
-    <!-- Page loading scripts -->
     <script>
       (function () {
         window.onload = function () {
-          const preloader = document.querySelector('.page-loading')
-          preloader.classList.remove('active')
-          setTimeout(function () {
-            preloader.remove()
-          }, 1500)
-        }
-      })()
+          const preloader = document.querySelector('.page-loading');
+          const video = document.getElementById('preloader-video');
+
+          // Nascondi il preloader quando il video finisce
+          video.onended = function () {
+            preloader.classList.remove('active'); // Nasconde il preloader
+            setTimeout(function () {
+              preloader.remove(); // Rimuove completamente il preloader dopo 1.5 secondi
+            }, 1000);
+          };
+        };
+      })();
     </script>
   </head>
 
   <!-- Body -->
   <body>
 
-
-    <!-- Page loading spinner -->
-    <div class="page-loading active">
-      <div class="page-loading-inner">
-        <div class="page-spinner"></div>
-        <span>Loading...</span>
-      </div>
+  <!-- Page loading video preloader -->
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <!-- Video come preloader (riproduzione una sola volta) -->
+      <video id="preloader-video" autoplay muted playsinline>
+        <source src="foto/preloader.mp4" type="video/mp4">
+        Il tuo browser non supporta il video.
+      </video>
     </div>
+  </div>
 
 
     <!-- Page wrapper -->
@@ -242,7 +305,7 @@
 
           <!-- Language switcher -->
           <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode" >
-            <input class="form-check-input" type="checkbox" id="language-mode">
+            <input class="form-check-input" type="checkbox" id="language-mode" style="background-color: rgb(249, 192, 34) !important">
             <label class="form-check-label" for="language-mode">
               <img dir="lingua italiana" src="foto/italy.png" width="25px">
             </label>
@@ -255,8 +318,10 @@
 
       <!-- Carosello Immagini -->
       <section>
-        <div class="swiper" style="margin-top: 100px; width: 60%; border-style: double; border-color: black;" data-swiper-options='{
-              "effect": "cube",
+        <p class="lingua-italiana FaithOfGuran-titolini" style="margin-top: 100px; font-size: 25px; text-align: center; color: black; margin-left: 10px; margin-right: 10px;">Una nuova concezione di gioco di ruolo online asincrono. </br>Nella vecchia fattoria ia ia o, c'è un criceto ed un cerbiatto.</p>
+        <p class="lingua-inglese FaithOfGuran-titolini"  style="margin-top: 100px; font-size: 25px; text-align: center; color: black; margin-left: 10px; margin-right: 10px;">A new concept of asynchronous online role-playing game. </br>In the old farm ia iao, there is a hamster and a fawn.</p>
+        <div class="swiper" style="width: 60%; /*border-style: double; border-color: black;*/" data-swiper-options='{
+              "effect": "cards",
               "loop": true,
               "autoplay": {
                 "delay": 2000,
@@ -271,81 +336,121 @@
               }
             }'>
           <div class="swiper-wrapper">
-
             <!-- Item -->
             <div class="swiper-slide bg-light">
               <div class="ratio ratio-16x9 bg-info bg-opacity-10">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-1.jpeg); background-repeat: round;"></div>
               </div>
             </div>
-
             <!-- Item -->
             <div class="swiper-slide bg-light">
               <div class="ratio ratio-16x9 bg-danger bg-opacity-10">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-2.jpeg); background-repeat: round;"></div>
               </div>
             </div>
-
             <!-- Item -->
             <div class="swiper-slide bg-light">
               <div class="ratio ratio-16x9 bg-warning bg-opacity-10">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-3.jpeg); background-repeat: round;"></div>
               </div>
             </div>
+            <!-- Item -->
+            <div class="swiper-slide bg-light">
+              <div class="ratio ratio-16x9 bg-warning bg-opacity-10">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-4.jpeg); background-repeat: round;"></div>
+              </div>
+            </div>
+            <!-- Item -->
+            <div class="swiper-slide bg-light">
+              <div class="ratio ratio-16x9 bg-warning bg-opacity-10">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-5.jpeg); background-repeat: round;"></div>
+              </div>
+            </div>
+            <!-- Item -->
+            <div class="swiper-slide bg-light">
+              <div class="ratio ratio-16x9 bg-warning bg-opacity-10">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-6.jpeg); background-repeat: round;"></div>
+              </div>
+            </div>
+            <!-- Item -->
+            <div class="swiper-slide bg-light">
+              <div class="ratio ratio-16x9 bg-warning bg-opacity-10">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center display-5" style="background-image: url(foto/carosello-7.jpeg); background-repeat: round;"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <p class="lingua-italiana FaithOfGuran-titolini" style="margin-top: 10px; font-size: 25px; text-align: center; color: black; margin-left: 10px; margin-right: 10px;">Una nuova concezione di gioco di ruolo online asincrono. </br>Nella vecchia fattoria ia ia o, c'è un criceto ed un cerbiatto.</p>
-      <p class="lingua-inglese FaithOfGuran-titolini"  style="margin-top: 10px; font-size: 25px; text-align: center; color: black; margin-left: 10px; margin-right: 10px;">A new concept of asynchronous online role-playing game. </br>In the old farm ia iao, there is a hamster and a fawn.</p>
 
       <!-- Countdown -->
-      <section>
-        <div class="countdown d-flex" data-countdown-date="01/01/2025 12:00:00">
-          <div class="text-center mb-2">
-            <div class="bg-secondary rounded-1 p-2" data-days></div>
-            <div class="h3 fw-normal mb-0 mx-1" data-days></div>
-            <span class="fs-sm">days</span>
-          </div>
-          <span class="blinking text-body-secondary fs-2 mx-2">:</span>
+      <section style="display: flex; justify-content: space-evenly; align-items: center; margin-top: 40px">
+        <div class="mb-3" style="margin-right: -50px" id="logo-kick">
+          <img src="foto/logo-kick-starter.png" style="width: 150px;">
+        </div>
+        <div class="countdown d-flex" data-countdown-date="01/01/2025 12:00:00" style="color: black; display: flex !important; flex-direction: column;">
+          <div>
+            <div class="text-center mb-2">
+              <div class="bg-secondary rounded-1 p-2 FaithOfGuran-titolini" data-days></div>
+              <div class="h3 fw-normal mb-0 mx-1" data-days></div>
+              <p class="lingua-italiana FaithOfGuran-titolini fs-sm">giorni</p>
+              <p class="lingua-inglese FaithOfGuran-titolini fs-sm">days</p>
+            </div>
+            <span class="blinking text-body-secondary fs-2 mx-2">:</span>
 
-          <div class="text-center mb-2">
-            <div class="bg-secondary rounded-1 p-2" data-hours></div>
-            <div class="h3 fw-normal mb-0 mx-1" data-hours></div>
-            <span class="fs-sm">hours</span>
-          </div>
-          <span class="blinking text-body-secondary fs-2 mx-2">:</span>
+            <div class="text-center mb-2">
+              <div class="bg-secondary rounded-1 p-2 FaithOfGuran-titolini" data-hours></div>
+              <div class="h3 fw-normal mb-0 mx-1" data-hours></div>
+              <p class="lingua-italiana FaithOfGuran-titolini fs-sm">ore</p>
+              <p class="lingua-inglese FaithOfGuran-titolini fs-sm">hours</p>
+            </div>
+            <span class="blinking text-body-secondary fs-2 mx-2">:</span>
 
-          <div class="text-center mb-2">
-            <div class="bg-secondary rounded-1 p-2" data-minutes></div>
-            <div class="h3 fw-normal mb-0 mx-1" data-minutes></div>
-            <span class="fs-sm">minutes</span>
-          </div>
-          <span class="blinking text-body-secondary fs-2 mx-2">:</span>
+            <div class="text-center mb-2">
+              <div class="bg-secondary rounded-1 p-2 FaithOfGuran-titolini" data-minutes></div>
+              <div class="h3 fw-normal mb-0 mx-1" data-minutes></div>
+              <p class="lingua-italiana FaithOfGuran-titolini fs-sm">minuti</p>
+              <p class="lingua-inglese FaithOfGuran-titolini fs-sm">minutes</p>
+            </div>
+            <span class="blinking text-body-secondary fs-2 mx-2">:</span>
 
-          <div class="text-center mb-2">
-            <div class="bg-secondary rounded-1 p-2" data-seconds></div>
-            <div class="h3 fw-normal mb-0 mx-1" data-seconds></div>
-            <span class="fs-sm">seconds</span>
+            <div class="text-center mb-2">
+              <div class="bg-secondary rounded-1 p-2 FaithOfGuran-titolini" data-seconds></div>
+              <div class="h3 fw-normal mb-0 mx-1" data-seconds></div>
+              <p class="lingua-italiana FaithOfGuran-titolini fs-sm">secondi</p>
+              <p class="lingua-inglese FaithOfGuran-titolini fs-sm">seconds</p>
+            </div>
+          </div>
+          <div>
+            <p class="lingua-italiana FaithOfGuran-titolini" style="font-size: 20px; text-align: center; color: black;">uscita progetto su Kickstarter.com!</p>
+            <p class="lingua-inglese FaithOfGuran-titolini" style="font-size: 20px; text-align: center; color: black;">Kickstarter.com exit project!</p>
           </div>
         </div>
-        <p class="FaithOfGuran-titolini" style="text-align: center;">Kickstarter.com exit project!</p>
+      </section>
+
+      <!-- Contact Form -->
+      <section style="display: flex; justify-content: center; align-items: center; margin-top: 40px; margin-bottom: 20px">
+        <div class="mb-3 contact-form-container">
+          <label for="email-user" class="form-label lingua-inglese FaithOfGuran-titolini" style="text-align: center; font-size: 30px; color: rgb(249, 192, 34);">Enter your email to stay updated.</label>
+          <label for="email-user" class="form-label lingua-italiana FaithOfGuran-titolini" style="text-align: center; font-size: 30px; color: rgb(249, 192, 34);">Inserisci la tua mail per restare aggiornato.</label>
+          <input class="form-control contact-form" type="email" id="email-user">
+          <button type="button" class="btn contact-form" style="margin-top: 10px; width: 100%; background-color: rgb(249, 192, 34);">
+            <span class="lingua-italiana">Invia</span>
+            <span class="lingua-inglese">Send</span>
+          </button>
+        </div>
       </section>
     </main>
 
-
-
     <!-- Footer -->
-    <footer class="footer bg-secondary py-5">
+    <footer class="footer bg-secondary py-3">
       <div class="container pt-1 pt-sm-2 pt-md-3 pt-lg-4 pt-xl-5">
-        <div class="border-bottom text-center pb-4">
-          <a class="navbar-brand d-inline-flex text-nav py-0 mb-3 mb-md-4" href="index.html">
+          <a class="navbar-brand d-inline-flex text-nav py-0 mb-3 mb-md-4 logo-footer" href="index.html">
             <span class="text-primary flex-shrink-0 me-2">
-            <img src="foto/logo.png" width="50px">
+            <img src="foto/logo.png" width="30px">
             </span>
-            <p id="nome-progetto" class="FaithOfGuran-title" style="margin-bottom: 0px; font-size: 50px; color: rgb(249, 192, 34);">Faith Of Guran</p>
+            <p id="nome-progetto" class="FaithOfGuran-title" style="margin-bottom: 0px; font-size: 30px; color: rgb(249, 192, 34);">Faith Of Guran</p>
           </a>
-        </div>
-        <div class="d-sm-flex align-items-center justify-content-between pt-4 mt-2 mt-sm-0">
+        <div class="d-sm-flex align-items justify-content-between">
           <div class="d-flex justify-content-center gap-3 order-sm-2 mb-4 mb-sm-0">
             <a class="btn btn-icon btn-sm btn-secondary btn-instagram rounded-circle" href="https://www.instagram.com/faithofguran?igsh=MWU1ejh0ZzVmemcwOQ%3D%3D&utm_source=qr" aria-label="Instagram">
               <i class="ai-instagram"></i>
@@ -353,18 +458,14 @@
             <a class="btn btn-icon btn-sm btn-secondary btn-facebook rounded-circle" href="https://www.facebook.com/profile.php?id=61566837755599" aria-label="Facebook">
               <i class="ai-facebook"></i>
             </a>
-            <a class="btn btn-icon btn-sm btn-secondary btn-tiktok rounded-circle" href="" aria-label="TikTok">
-              <i class="ai-tiktok"></i>
-            </a>
           </div>
-          <p class="nav fs-sm order-sm-1 justify-content-center mb-0">
-            <span class="text-body-secondary lingua-inglese">&copy; All rights reserved. Made by trianitriani & DigitAlex</span>
-            <span class="text-body-secondary lingua-italiana">&copy; Tutti i diritti riservati. Creato da trianitriani & DigitAlex</span>
+          <p class="diritti-footer nav fs-sm order-sm-1 justify-content mb-0">
+            <span class="text-body-secondary lingua-inglese">&copy; All rights reserved. </br> Made by trianitriani & DigitAlex</span>
+            <span class="text-body-secondary lingua-italiana">&copy; Tutti i diritti riservati. </br> Creato da trianitriani & DigitAlex</span>
           </p>
         </div>
       </div>
     </footer>
-  
 
     <!-- Back to top button -->
     <a class="btn-scroll-top" href="#top" data-scroll aria-label="Scroll back to top">
@@ -373,7 +474,6 @@
       </svg>
       <i class="ai-arrow-up"></i>
     </a>
-
 
     <!-- Vendor scripts: JS libraries and plugins -->
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
