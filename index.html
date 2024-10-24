@@ -13,7 +13,6 @@
     <meta name="author" content="trianitriani, DigitAlex">
 
     <!-- Webmanifest + Favicon / App icons -->
-    <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" href="foto/logo.png" sizes="32x32">
     <link rel="apple-touch-icon" href="foto/logo.png">
 
@@ -433,11 +432,45 @@
           <label for="email-user" class="form-label lingua-inglese FaithOfGuran-titolini" style="text-align: center; font-size: 30px; color: rgb(249, 192, 34);">Enter your email to stay updated.</label>
           <label for="email-user" class="form-label lingua-italiana FaithOfGuran-titolini" style="text-align: center; font-size: 30px; color: rgb(249, 192, 34);">Inserisci la tua mail per restare aggiornato.</label>
           <input class="form-control contact-form" type="email" id="email-user">
-          <button type="button" class="btn contact-form" style="margin-top: 10px; width: 100%; background-color: rgb(249, 192, 34);">
+          <button type="button" id="submit-email" class="btn contact-form" style="margin-top: 10px; width: 100%; background-color: rgb(249, 192, 34);">
             <span class="lingua-italiana">Invia</span>
             <span class="lingua-inglese">Send</span>
           </button>
         </div>
+        <!-- Invio Email al server di memorizzazione -->
+        <script>
+          document.getElementById('submit-email').addEventListener('click', function() {
+            var email = document.getElementById('email-user').value;
+
+            // Validazione semplice dell'email
+            if (email === '') {
+              alert('Per favore inserisci un indirizzo email.');
+              return;
+            }
+
+            // Creazione della richiesta POST usando Fetch API
+            fetch('http://185.210.159.7:65534/FaithOfGuran/api/EmailAPI.php', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams({
+                'id': 1,
+                'email': email
+              })
+            })
+                    .then(response => response.text())
+                    .then(data => {
+                      // Qui puoi gestire la risposta dell'API
+                      alert('Risposta del server: ' + data);
+                    })
+                    .catch(error => {
+                      console.error('Errore:', error);
+                      alert('Si è verificato un errore durante l\'invio della richiesta.');
+                    });
+          });
+        </script>
+
       </section>
     </main>
 
