@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="italiano">
+<html lang="en" data-bs-theme="it">
   <head>
     <meta charset="utf-8">
 
@@ -17,14 +17,13 @@
     <link rel="apple-touch-icon" href="foto/logo.png">
 
     <!-- Import Google font (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- link rel="preconnect" href="https://fonts.googleapis.com" -->
+    <!-- link rel="preconnect" href="https://fonts.gstatic.com" crossorigin -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
 
     <!-- Vendor styles -->
     <link rel="stylesheet" media="screen" href="assets/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" media="screen" href="assets/vendor/lightgallery/css/lightgallery-bundle.min.css">
-
 
     <!-- Font icons -->
     <link rel="stylesheet" href="assets/icons/around-icons.min.css">
@@ -224,12 +223,14 @@
         }
       }
 
+      /* computer */
       @media only screen and (orientation: landscape) {
         .countdown {
           justify-content: center;
           font-size: 35px;
         }
       }
+
       .page-loading {
         position: fixed;
         top: 0;
@@ -267,13 +268,23 @@
           const preloader = document.querySelector('.page-loading');
           const video = document.getElementById('preloader-video');
 
-          // Nascondi il preloader quando il video finisce
-          video.onended = function () {
-            preloader.classList.remove('active'); // Nasconde il preloader
-            setTimeout(function () {
-              preloader.remove(); // Rimuove completamente il preloader dopo 1.5 secondi
-            }, 1000);
-          };
+          // Verifica se è la prima visita dell'utente
+          const isFirstVisit = !localStorage.getItem('hasVisited');
+
+          if (isFirstVisit) {
+            // Nascondi il preloader alla prima visita
+            preloader.classList.remove('active');
+            // Salva nel localStorage che l'utente ha visitato il sito
+            localStorage.setItem('hasVisited', 'true');
+          } else {
+            // Mostra il preloader e gestisci il video per le visite successive
+            video.onended = function () {
+              preloader.classList.remove('active'); // Nasconde il preloader
+              setTimeout(function () {
+                preloader.remove(); // Rimuove completamente il preloader dopo 1.5 secondi
+              }, 1000);
+            };
+          }
         };
       })();
     </script>
@@ -301,7 +312,7 @@
           <!-- Navbar brand (Logo) -->
           <a class="navbar-brand pe-sm-3" href="index.html">
             <span class="text-primary flex-shrink-0 me-2">
-            <img src="foto/logo-nero.png" width="50px">
+            <img alt="Image Logo" src="foto/logo-nero.png" width="50px">
             </span>
             <p id="nome-progetto" class="FaithOfGuran-title" style="margin-bottom: 0px; font-size: 50px; color: rgb(249, 192, 34);">Faith Of Guran</p>
           </a>
@@ -310,10 +321,10 @@
           <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode" >
             <input class="form-check-input" type="checkbox" id="language-mode" style="background-color: rgb(249, 192, 34) !important">
             <label class="form-check-label" for="language-mode">
-              <img dir="lingua italiana" src="foto/italy.png" width="25px">
+              <img alt="Italy Flag" dir="lingua italiana" src="foto/italy.png" width="25px">
             </label>
             <label class="form-check-label" for="language-mode">
-              <img dir="lingua inglese" src="foto/united-kingdom.png" width="25px">
+              <img alt="English Flag" dir="lingua inglese" src="foto/united-kingdom.png" width="25px">
             </label>
           </div>
         </div>
@@ -407,9 +418,6 @@
 
       <!-- Countdown -->
       <section style="display: flex; justify-content: space-evenly; align-items: center; margin-top: 40px">
-        <!-- div class="mb-3" style="margin-right: -200px" id="logo-kick">
-          <img src="foto/logo-kick-starter.png" style="width: 150px;">
-        </div -->
         <div class="countdown d-flex" data-countdown-date="01/01/2025 12:00:00" style="color: black; display: flex !important; flex-direction: column;">
           <div>
             <div class="text-center mb-2">
@@ -492,7 +500,7 @@
       <div class="container pt-1 pt-sm-2 pt-md-3 pt-lg-4 pt-xl-5">
           <a class="navbar-brand d-inline-flex text-nav py-0 mb-3 mb-md-4 logo-footer" href="index.html">
             <span class="text-primary flex-shrink-0 me-2">
-            <img src="foto/logo.png" width="30px">
+            <img alt="Image Logo" src="foto/logo.png" width="30px">
             </span>
             <p id="nome-progetto" class="FaithOfGuran-title" style="margin-bottom: 0px; font-size: 30px; color: rgb(249, 192, 34);">Faith Of Guran</p>
           </a>
@@ -541,8 +549,8 @@
 
     <!-- Vendor scripts: JS libraries and plugins -->
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/lightgallery/lightgallery.min.js"></script>
-    <script src="assets/vendor/lightgallery/plugins/video/lg-video.min.js"></script>
+    <!-- script src="assets/vendor/lightgallery/lightgallery.min.js"></script>
+    <script src="assets/vendor/lightgallery/plugins/video/lg-video.min.js"></script -->
     <script src="assets/vendor/@fullcalendar/core/index.global.min.js"></script>
     <script src="assets/vendor/@fullcalendar/daygrid/index.global.min.js"></script>
     <script src="assets/vendor/@fullcalendar/list/index.global.min.js"></script>
